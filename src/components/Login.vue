@@ -9,7 +9,10 @@
       <div class="logo-container non-selectable no-pointer-events">
         <div class="logo" :style="position">
           <img src="~assets/quasar-logo.png">
-            <p class="home-title text-center text-primary">MyBiz</p>
+          <p class="caption text-center">
+            <span class="desktop-only">MyBiz</span>
+            <span class="touch-only">MyBiz</span>
+          </p>
         </div>
       </div>
     </div>
@@ -81,8 +84,4 @@ export default {
 .logo
   position absolute
   transform-style preserve-3d
-.home-title
-  font-size 30px
-  font-weight 600
-  margin-top 15px
 </style>
