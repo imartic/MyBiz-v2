@@ -4,8 +4,7 @@
       
       <div class="bg-logo logo-container non-selectable no-pointer-events">
         <div class="logo" :style="position">
-          <img src="~assets/quasar-logo.png">
-          <p class="home-title text-center text-white">MyBiz</p>
+          <img src="~assets/quasar-logo.png" height="150px" width="150px">
         </div>
       </div>
 
@@ -18,17 +17,23 @@
                 <div class="row wrap small-gutter" style="margin-bottom:20px">
                   <div class="auto row home-form-input">
                     <span class="label text-primary"><i>person_outline</i></span>
-                    <input class="auto" v-model="username" placeholder="Username">
+                    <input id="username" class="auto" v-model="username" placeholder="Username">
                   </div>
                   <div class="auto row home-form-input">
                     <span class="label text-primary"><i>lock_outline</i></span>
-                    <input class="auto" v-model="password" placeholder="Password">
+                    <input id="password" class="auto" v-model="password" placeholder="Password">
                   </div>
                 </div>
                 <label class="remember-me">
                   <q-checkbox v-model="rmChecked"></q-checkbox>
                   Remember me
                 </label>
+
+                <div v-if="signInError" class='input-error bg-negative'>
+                  <span class="close-error" @click="closeError()">&times;</span> 
+                  {{signInErrorMsg}}
+                </div>
+
                 <button class="primary clear full-width" @click="signIn()">
                   Sign in
                 </button>
@@ -55,7 +60,7 @@
                       <input class="auto" v-model="confirmPassword" placeholder="Confirm Password">
                     </div>
                   </div>
-                  <button class="primary clear full-width" @click="signIn()">
+                  <button class="primary clear full-width" @click="register()">
                     Create account
                   </button>
                 </div>
@@ -68,8 +73,8 @@
 </template>
 
 <script>
-var moveForce = 30
-var rotateForce = 40
+var moveForce = 15
+var rotateForce = 25
 
 import { Utils } from 'quasar'
 
@@ -86,7 +91,9 @@ export default {
       mail: '',
       username_new: '',
       password_new: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      signInError: false,
+      signInErrorMsg: ''
     }
   },
   computed: {
@@ -112,6 +119,39 @@ export default {
       this.moveY = (top - halfH) / halfH * -moveForce
       this.rotateY = (left / width * rotateForce * 2) - rotateForce
       this.rotateX = -((top / height * rotateForce * 2) - rotateForce)
+    },
+    signIn () {
+      if(this.username.length < 1){ //todo: validation
+        this.signInError = true
+        this.signInErrorMsg = 'Please enter your username or e-mail address.'
+        document.getElementById('username').focus();
+        return
+      }
+      if(this.password.length < 1){ //...
+        this.signInError = true
+        this.signInErrorMsg = 'Please enter a password.'
+        document.getElementById('password').focus();
+        return
+      }
+      alert('SIGN IN WITH:\n\n' +
+            'Username: ' + this.username + '\n' +
+            'Password: ' + this.password + '\n' +
+            'Remember me: ' + this.rmChecked)
+    },
+    register () {
+      let conf = (this.password_new === this.confirmPassword) ?
+            'Password confirmed!' :
+            'Passwords do not match!'
+
+      alert('REGISTER:\n\n' +
+            'E-mail: ' + this.mail + '\n' +
+            'Username: ' + this.username_new + '\n' +
+            'Password: ' + this.password_new + '\n' +
+            conf)
+    },
+    closeError () {
+      this.signInError = false
+      this.signInErrorMsg = ''
     }
   },
   mounted () {
@@ -131,24 +171,20 @@ export default {
 .bg-logo
   opacity 1
 .logo-container
-  width 192px
-  height 268px
+  width 150px
+  height 150px
   perspective 800px
   position absolute
-  top 27%
+  top 20%
   left 50%
   transform translateX(-50%) translateY(-50%)
 .logo
   position absolute
   transform-style preserve-3d
-.home-title
-  font-size 30px
-  font-weight 600
-  margin-top 10px
 
 .home-page
   .home-code
-    height 50vh
+    height 40vh
     width 100%
     padding-top 15vh
     font-size 90px
@@ -189,4 +225,22 @@ export default {
 .home-card .q-collapsible-sub-item
   padding-left 8px
   padding-right 8px
+
+.input-error
+    padding 18px
+    border-radius 2px
+    color white
+    font-size 15px
+    margin-top:20px
+.close-error
+    margin-left 15px
+    color white
+    font-weight bold
+    float right
+    font-size 22px
+    line-height 20px
+    cursor pointer
+    transition 0.3s
+.close-error:hover
+    color black
 </style>
