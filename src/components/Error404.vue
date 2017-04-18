@@ -8,7 +8,7 @@
         <i class="text-grey-5">error_outline</i>
         <p class="caption text-center">Oops. Nothing here...</p>
         <p class="text-center group">
-          <button v-if="canGoBack" class="grey outline small" @click="goBack">
+          <button v-if="canGoBack" class="grey outline small" @click="goBack()">
             <i class="on-left">keyboard_arrow_left</i>
             Go back
           </button>
