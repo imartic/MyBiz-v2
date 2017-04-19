@@ -30,7 +30,7 @@
                 </label>
 
                 <div v-if="signInError" class='input-error bg-negative'>
-                  <span class="close-error" @click="closeError()">&times;</span> 
+                  <span class="close-error" @click="closeError(1)">&times;</span> 
                   {{signInErrorMsg}}
                 </div>
 
@@ -45,21 +45,27 @@
                   <div class="row wrap small-gutter" style="margin-bottom:20px">
                     <div class="auto row home-form-input">
                       <span class="label text-primary"><i>mail_outline</i></span>
-                      <input class="auto" v-model="mail" placeholder="E-mail">
+                      <input id="mail" class="auto" v-model="mail" placeholder="E-mail">
                     </div>
                     <div class="auto row home-form-input">
                       <span class="label text-primary"><i>person_outline</i></span>
-                      <input class="auto" v-model="username_new" placeholder="Username">
+                      <input id="username_new" class="auto" v-model="username_new" placeholder="Username">
                     </div>
                     <div class="auto row home-form-input">
                       <span class="label text-primary"><i>lock_outline</i></span>
-                      <input class="auto" v-model="password_new" placeholder="Password">
+                      <input id="password_new" class="auto" v-model="password_new" placeholder="Password">
                     </div>
                     <div class="auto row home-form-input">
                       <span class="label text-primary"><i>lock_outline</i></span>
-                      <input class="auto" v-model="confirmPassword" placeholder="Confirm Password">
+                      <input id="confirmPassword" class="auto" v-model="confirmPassword" placeholder="Confirm Password">
                     </div>
                   </div>
+
+                  <div v-if="signUpError" class='input-error bg-negative'>
+                    <span class="close-error" @click="closeError(2)">&times;</span> 
+                    {{signUpErrorMsg}}
+                  </div>
+
                   <button class="primary clear full-width" @click="register()">
                     Create account
                   </button>
@@ -93,7 +99,9 @@ export default {
       password_new: '',
       confirmPassword: '',
       signInError: false,
-      signInErrorMsg: ''
+      signInErrorMsg: '',
+      signUpError: false,
+      signUpErrorMsg: ''
     }
   },
   computed: {
@@ -127,31 +135,69 @@ export default {
         document.getElementById('username').focus();
         return
       }
-      if(this.password.length < 1){ //...
+      else if(this.password.length < 1){ //...
         this.signInError = true
         this.signInErrorMsg = 'Please enter a password.'
         document.getElementById('password').focus();
         return
       }
-      alert('SIGN IN WITH:\n\n' +
+
+      this.closeError(1)
+
+      console.log('SIGNED IN WITH:\n' +
             'Username: ' + this.username + '\n' +
             'Password: ' + this.password + '\n' +
             'Remember me: ' + this.rmChecked)
+
+      this.$router.push('/') //todo: user id as param
     },
     register () {
       let conf = (this.password_new === this.confirmPassword) ?
             'Password confirmed!' :
             'Passwords do not match!'
 
-      alert('REGISTER:\n\n' +
+      if(this.mail.length < 1){ //todo: validation
+        this.signUpError = true
+        this.signUpErrorMsg = 'Please enter your e-mail address.'
+        document.getElementById('mail').focus();
+        return
+      }
+      else if(this.username_new.length < 1){
+        this.signUpError = true
+        this.signUpErrorMsg = 'Please enter a username.'
+        document.getElementById('username_new').focus();
+        return
+      }
+      else if(this.password_new.length < 4){
+        this.signUpError = true
+        this.signUpErrorMsg = 'Password must contain at least 4 characters.'
+        document.getElementById('password_new').focus();
+        return
+      }
+      else if(this.password_new !== this.confirmPassword){
+        this.signUpError = true
+        this.signUpErrorMsg = 'Passwords do not match.'
+        document.getElementById('confirmPassword').focus();
+        return
+      }
+
+      this.closeError(2)
+
+      console.log('REGISTERED:\n' +
             'E-mail: ' + this.mail + '\n' +
             'Username: ' + this.username_new + '\n' +
             'Password: ' + this.password_new + '\n' +
             conf)
     },
-    closeError () {
-      this.signInError = false
-      this.signInErrorMsg = ''
+    closeError (no) { //1 = sign in, 2 = sign up
+      if(no === 1){
+        this.signInError = false
+        this.signInErrorMsg = ''
+      }
+      else if(no === 2){
+        this.signUpError = false
+        this.signUpErrorMsg = ''
+      }
     }
   },
   mounted () {
