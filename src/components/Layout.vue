@@ -70,7 +70,7 @@ export default {
       userMenu: [
         {text: 'Your companies', icon: 'business', link: '/companies'},
         {text: 'Account settings', icon: 'settings', link: '/account'},
-        {text: 'Sign out', icon: 'power_settings_new', link: '/home'}
+        {text: 'Sign out', icon: 'power_settings_new', link: '/signin'}
       ]
     }
   }

@@ -129,16 +129,16 @@ export default {
       this.rotateX = -((top / height * rotateForce * 2) - rotateForce)
     },
     signIn () {
-      if(this.username.length < 1){ //todo: validation
+      if (this.username.length < 1) { // todo: validation
         this.signInError = true
         this.signInErrorMsg = 'Please enter your username or e-mail address.'
-        document.getElementById('username').focus();
+        document.getElementById('username').focus()
         return
       }
-      else if(this.password.length < 1){ //...
+      if (this.password.length < 1) { // ...
         this.signInError = true
         this.signInErrorMsg = 'Please enter a password.'
-        document.getElementById('password').focus();
+        document.getElementById('password').focus()
         return
       }
 
@@ -149,35 +149,35 @@ export default {
             'Password: ' + this.password + '\n' +
             'Remember me: ' + this.rmChecked)
 
-      this.$router.push('/') //todo: user id as param
+      this.$router.push('/')
     },
     register () {
-      let conf = (this.password_new === this.confirmPassword) ?
-            'Password confirmed!' :
-            'Passwords do not match!'
+      let conf = (this.password_new === this.confirmPassword)
+            ? 'Password confirmed!'
+            : 'Passwords do not match!'
 
-      if(this.mail.length < 1){ //todo: validation
+      if (this.mail.length < 1) { // todo: validation
         this.signUpError = true
         this.signUpErrorMsg = 'Please enter your e-mail address.'
-        document.getElementById('mail').focus();
+        document.getElementById('mail').focus()
         return
       }
-      else if(this.username_new.length < 1){
+      if (this.username_new.length < 1) {
         this.signUpError = true
         this.signUpErrorMsg = 'Please enter a username.'
-        document.getElementById('username_new').focus();
+        document.getElementById('username_new').focus()
         return
       }
-      else if(this.password_new.length < 4){
+      if (this.password_new.length < 4) {
         this.signUpError = true
         this.signUpErrorMsg = 'Password must contain at least 4 characters.'
-        document.getElementById('password_new').focus();
+        document.getElementById('password_new').focus()
         return
       }
-      else if(this.password_new !== this.confirmPassword){
+      if (this.password_new !== this.confirmPassword) {
         this.signUpError = true
         this.signUpErrorMsg = 'Passwords do not match.'
-        document.getElementById('confirmPassword').focus();
+        document.getElementById('confirmPassword').focus()
         return
       }
 
@@ -189,12 +189,12 @@ export default {
             'Password: ' + this.password_new + '\n' +
             conf)
     },
-    closeError (no) { //1 = sign in, 2 = sign up
-      if(no === 1){
+    closeError (no) { // 1 = sign in, 2 = sign up
+      if (no === 1) {
         this.signInError = false
         this.signInErrorMsg = ''
       }
-      else if(no === 2){
+      else if (no === 2) {
         this.signUpError = false
         this.signUpErrorMsg = ''
       }

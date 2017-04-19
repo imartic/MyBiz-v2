@@ -2,7 +2,7 @@
   <!-- Don't drop "q-app" class -->
   <div id="q-app">
     
-    <Layout></Layout>
+    <Layout></Layout> <!-- todo: v-if user authenticated -->
     <router-view></router-view>
 
   </div>
