@@ -20,7 +20,7 @@
               <div class="card-media">
                 <button class="secondary circular">
                   <i>add</i>
-                  <q-tooltip>
+                  <q-tooltip anchor="center left" self="center right" :offset="[-10,0]">
                       New proposal
                   </q-tooltip>
                 </button>
@@ -43,9 +43,11 @@
                 </table>
               </div>
               <div class="card-actions card-no-top-padding">
-                <button class="primary full-width clear small">
-                  View all proposals
-                </button>
+                <router-link to="proposals" class="full-width">
+                  <button class="primary full-width clear small">
+                    View all proposals
+                  </button>
+                </router-link>
               </div>
             </div>
           </div>
@@ -57,7 +59,7 @@
               <div class="card-media">
                 <button class="secondary circular">
                   <i>add</i>
-                  <q-tooltip>
+                  <q-tooltip anchor="center left" self="center right" :offset="[-10,0]">
                       New task
                   </q-tooltip>
                 </button>
@@ -80,9 +82,11 @@
                 </table>
               </div>
               <div class="card-actions card-no-top-padding">
-                <button class="primary full-width clear small">
-                  View full schedule
-                </button>
+                <router-link to="schedule" class="full-width">
+                  <button class="primary full-width clear small">
+                    View full schedule
+                  </button>
+                </router-link>
               </div>
             </div>
           </div>
@@ -115,4 +119,17 @@ export default {
 <style lang="stylus">
 .home-table
   width 100%
+
+.layout-padding
+  padding-top 40px
+
+@media (min-width:1200px)
+    .layout-padding
+      padding-left:150px
+      padding-right:150px
+
+@media (min-width:1600px)
+    .layout-padding
+      padding-left:300px
+      padding-right:300px
 </style>
