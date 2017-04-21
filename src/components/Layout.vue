@@ -30,7 +30,7 @@
             <i>person</i>
         </button>
 
-        <q-drawer ref="userDrawer" swipe-only right-side dark>
+        <q-drawer ref="userDrawer" swipe-only right-side dark :backdrop-opacity="0.2">
         <div class="list no-border platform-delimiter">
         <div class="toolbar primary">
             <button @click="$refs.userDrawer.close()">

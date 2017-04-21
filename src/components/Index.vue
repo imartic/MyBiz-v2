@@ -13,7 +13,7 @@
         
         <div class="row wrap small-gutter">
           <div class="auto">
-            <div class="card">
+            <div class="card bg-white">
               <div class="card-title bg-primary text-white">
                 <span>Proposals</span>
               </div>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <div class="auto">
-            <div class="card">
+            <div class="card bg-white">
               <div class="card-title bg-primary text-white">
                 <span>Schedule</span>
               </div>
@@ -119,17 +119,4 @@ export default {
 <style lang="stylus">
 .home-table
   width 100%
-
-.layout-padding
-  padding-top 40px
-
-@media (min-width:1200px)
-    .layout-padding
-      padding-left:150px
-      padding-right:150px
-
-@media (min-width:1600px)
-    .layout-padding
-      padding-left:300px
-      padding-right:300px
 </style>
